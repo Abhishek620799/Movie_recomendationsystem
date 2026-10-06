@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101014">
+    <meta name="description" content="Discover your next favorite movie with recommendations based on the stories you love.">
+    <title>Reel Good - Find your next favorite</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="api-config.js" defer></script>
+    <script src="movies-data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Reel Good home">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>reel<span class="brand-accent">good</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link is-active" href="#discover">Discover</a>
+        <a class="nav-link" href="#recommend">For you</a>
+        <button class="watchlist-link" id="watchlistToggle" type="button">
+          Watchlist <span class="watchlist-count" id="watchlistCount">0</span>
+        </button>
+      </nav>
+      <a class="topbar-cta" href="#recommend">Find a movie <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL MOVIE COMPASS</p>
+          <h1 id="heroTitle">A good story<br>finds <em>its way</em> to you.</h1>
+          <p class="hero-description">Tell us what you love. We'll find the next film that feels like it was made for you.</p>
+          <a class="primary-button" href="#recommend">Find your next watch <span aria-hidden="true">→</span></a>
+          <div class="hero-proof">
+            <div class="avatar-stack" aria-hidden="true"><span>✦</span><span>◉</span><span>✧</span></div>
+            <span>Thoughtful picks, no endless scrolling</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Featured movie: Interstellar">
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="" fetchpriority="high">
+          <div class="hero-photo-shade" aria-hidden="true"></div>
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="planet"></div>
+          <div class="hero-art-grain"></div>
+          <div class="featured-label"><span class="pulse-dot"></span> TONIGHT'S FEATURE</div>
+          <div class="featured-info">
+            <p class="featured-kicker">A JOURNEY BEYOND THE STARS</p>
+            <h2>Interstellar</h2>
+            <p>Love is the one thing we're capable of perceiving that transcends dimensions of time and space.</p>
+            <button class="text-button" id="heroMovieButton" type="button">Explore this film <span aria-hidden="true">↗</span></button>
+          </div>
+          <span class="hero-art-index" aria-hidden="true">01 / 50</span>
+        </div>
+        <div class="hero-bottom-rule"><span>CURATED FOR CURIOUS MINDS</span><span>SCROLL TO EXPLORE ↓</span></div>
+      </section>
+
+      <section class="recommend-section section-wrap" id="recommend" aria-labelledby="recommendTitle">
+        <div class="section-heading recommendation-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> SEARCH BY MOVIE TITLE</p>
+            <h2 id="recommendTitle">Find your movie + 3 similar.</h2>
+            <p class="section-subtitle">Enter a movie title to find that film and three similar recommendations.</p>
+          </div>
+          <span class="step-number">01 <i>—</i> 02</span>
+        </div>
+        <form class="recommend-form" id="recommendForm">
+          <label class="select-wrap" for="movieTitleInput">
+            <span class="visually-hidden">Enter a movie title</span>
+            <input id="movieTitleInput" type="search" list="movieTitleSuggestions" placeholder="Enter a movie title, e.g. Interstellar" autocomplete="off" required>
+            <datalist id="movieTitleSuggestions"></datalist>
+          </label>
+          <button class="primary-button" type="submit">Find movie + 3 similar <span aria-hidden="true">→</span></button>
+        </form>
+        <div id="recommendationResults" class="recommendation-results api-result-panel" aria-live="polite"></div>
+      </section>
+
+      <section class="discover-section section-wrap" id="discover" aria-labelledby="discoverTitle">
+        <div class="section-heading discover-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> SEARCH BY DESCRIPTION</p>
+            <h2 id="discoverTitle">Find a film by its story.</h2>
+          </div>
+          <form class="search-box" id="searchForm" role="search">
+            <label class="visually-hidden" for="searchInput">Describe the kind of movie you want</label>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="searchInput" type="search" placeholder="Try: romantic, space adventure..." autocomplete="off" required>
+            <button class="search-submit" type="submit" aria-label="Find movies by description">→</button>
+          </form>
+        </div>
+        <div class="catalog-toolbar">
+          <p id="catalogSummary" class="catalog-summary"></p>
+          <button class="filter-button" id="watchlistFilter" type="button" aria-pressed="false">
+            <span aria-hidden="true">♡</span> My watchlist
+          </button>
+        </div>
+        <div class="api-search-panel" id="apiSearchPanel" hidden aria-live="polite">
+          <div class="api-search-heading">
+            <h3 id="apiSearchTitle">Search results</h3>
+            <p id="apiSearchStatus"></p>
+          </div>
+          <div class="api-result-list" id="apiSearchResults"></div>
+        </div>
+        <div class="movie-grid" id="movieGrid"></div>
+        <p class="empty-state" id="emptyState" hidden>No movies found. Try another title or clear your search.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">R</span><span>reel<span class="brand-accent">good</span></span></a>
+      <p>Less scrolling. More feeling.</p>
+      <span class="footer-note">MADE FOR YOUR NEXT MOVIE NIGHT</span>
+    </footer>
+
+    <dialog class="movie-dialog" id="movieDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" id="dialogClose" type="button" aria-label="Close movie details">×</button>
+      <div class="dialog-poster" id="dialogPoster" aria-hidden="true"></div>
+      <div class="dialog-content">
+        <p class="eyebrow"><span class="eyebrow-line"></span> A STORY TO GET LOST IN</p>
+        <h2 id="dialogTitle"></h2>
+        <p class="dialog-description" id="dialogDescription"></p>
+        <div class="dialog-actions">
+          <button class="primary-button" id="dialogRecommend" type="button">Find similar films <span aria-hidden="true">→</span></button>
+          <button class="filter-button" id="dialogSave" type="button"><span aria-hidden="true">♡</span> Save to watchlist</button>
+        </div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
