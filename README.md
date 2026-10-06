@@ -1,16 +1,6 @@
 Today 11:38 AM
 Pasted markdown.md
-File
-ye lo iska id or genre langauga remove kr ke kewal title or description deo
-Edit
 
-Haan 👍 aisa design bana sakte ho — dark cinematic UI, 50 movie cards, search aur Find Similar button.
-
-Image mein jo design hai usi type ka frontend code main tumhare Spring Boot API ke saath connect karke bana sakta hoon.
-
-Haan 😄 tum GitHub repo ki description maang rahe the.
-
-Agar tum apne Movie Recommendation System ke GitHub repository ke liye description chahte ho, ye use kar sakte ho:
 
 Movie Recommendation System built using Java Spring Boot, text embeddings, vector representations, and cosine similarity to recommend movies based on their descriptions. The project demonstrates how vector similarity and vector databases can be used to build recommendation systems similar to the core concepts used by platforms like Netflix and YouTube.
 
